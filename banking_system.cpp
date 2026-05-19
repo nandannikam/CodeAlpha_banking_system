@@ -140,7 +140,52 @@ class transaction : public account {
 
 int main(){
 
+    transaction t1;
 
+
+    int c1;
+    int c3 = 0;
+
+while (c3!=5) {
+        cout << "Welcome to the Banking System Menu" << endl;
+        cout << "1. Create new account" << endl;
+        cout << "2. Manage existing account" << endl;
+        cout << "Enter your choice - " << endl;
+        cin >> c1;
+
+        if(c1 == 1){
+            cout << "Creating new user comming soon" << endl;
+
+        } else if (c1==2){
+
+            c3 = t1.login();
+
+            if(c3==1){
+                cout << "Enter the amount to be deposited - ";
+                cin >> amt;
+                t1.deposit(amt);
+           
+            } else if (c3==2){
+                cout << "Enter the amount to be withdrawn - ";
+                cin >> amt;
+                t1.withdrawal(amt);
+
+            } else if (c3==3){  
+                cout <<"Fund transfer function comming soon.." << endl;
+            
+            } else if (c3==4){
+                t1.check_balance();
+            
+            } else if (c3==5){
+                
+                cout << "Exiting function comming soon" << endl;
+            }
+
+        } else {
+            cout << "Enter valid input.." << endl;
+        }
+
+}
 
     return 0;
 }
