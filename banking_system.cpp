@@ -185,7 +185,7 @@ while (c3!=5) {
             cout << "Enter valid input.." << endl;
         }
 
-}
+    }
 
     return 0;
 }
