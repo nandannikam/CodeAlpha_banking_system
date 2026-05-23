@@ -4,7 +4,6 @@
 using namespace std;
 
 
-
 class customer {
 
     public :
@@ -22,10 +21,8 @@ class customer {
         cin >> p;
     }
 
-
-
-
 };
+
 
 class account : public customer{
 
@@ -56,9 +53,8 @@ class account : public customer{
         return 0;
     }
 
-
-
 };
+
 
 class transaction : public account {
 
@@ -87,11 +83,17 @@ class transaction : public account {
         }
     }
 
+    void fund_transfer(float amt){
+
+        int f;
+        cout << "Enter the receiver's account number - ";
+        cin >> f;
+    }
+
     void check_balance(){
         cout << "Available Balance - " << balance << endl; 
     }
-
-    
+ 
 
 };
 
@@ -116,7 +118,7 @@ int main(){
 
 
 
-while (true) {
+    while (true) {
 
         cout << "Welcome to the Banking System Menu" << endl;
         cout << "1. Create new account" << endl;
