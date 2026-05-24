@@ -151,6 +151,7 @@ int main(){
     while (true) {
 
         cout << "Welcome to the Banking System Menu" << endl;
+        cout << "Main Menu :" << endl;
         cout << "1. Create new account" << endl;
         cout << "2. Manage existing account" << endl;
         cout << "3. Exit" << endl;
@@ -193,7 +194,7 @@ int main(){
                 while(true){
 
 
-                    cout << "Menu :" << endl;
+                    cout << "User Menu :" << endl;
                     cout << "1. Deposit Cash" << endl;
                     cout << "2. Withdrawal Cash" << endl;
                     cout << "3. Fund Transfer" << endl;
