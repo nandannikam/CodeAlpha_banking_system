@@ -10,17 +10,6 @@ class customer {
 
     string name;
     int acc_num;
-    int p;
-
-    void new_acc(){
-        cout << "Enter the account holder name - ";
-        cin >> name;
-        cout << "Enter the account number - ";
-        cin >> acc_num;
-        cout << "Set the pin to perform transactions - ";
-        cin >> p;
-    }
-
 };
 
 
@@ -34,16 +23,13 @@ class account : public customer{
 
     vector <string> tran_his;
 
-    int get_pin(){
-        return pin; 
-    }
-
-    float get_balance(){
-        return balance;
-    }
-
-    void set_pin(int x){
-        pin = x;
+    void new_acc(){
+        cout << "Enter the account holder name - ";
+        getline(cin >> ws, name);
+        cout << "Enter the account number - ";
+        cin >> acc_num;
+        cout << "Set the pin to perform transactions - ";
+        cin >> pin;
     }
 
     int login(int a, int user_pin){
@@ -109,14 +95,11 @@ class transaction : public account {
             cout << "Enter valid input !" << endl;
         } else {
             balance -= amt;
-            cout << "tranferring...." << endl;
+            cout << "transferring...." << endl;
             return amt;
 
         }
-
-
-
-        
+  
     }
 
     void check_balance(){
@@ -128,23 +111,12 @@ class transaction : public account {
 
 
 
-
-
-
-
-
-
-
-
-
 int main(){
 
     vector<transaction> users;
 
     int c1;
     int c2;
-    float receiver_amt;
-
 
 
 
@@ -161,7 +133,6 @@ int main(){
         if(c1 == 1){
             transaction newUser;
             newUser.new_acc();
-            newUser.set_pin(newUser.p);
             users.push_back(newUser);
             cout << "Account created successfully!" << endl;
 
@@ -230,9 +201,10 @@ int main(){
                         }
 
                         if(receiver_found != -1){
+
                             float receiver_amt = users[found].fund_transfer();
                             users[receiver_found].receiver_balance_update(receiver_amt);
-                            cout << "Amount transfered to  "<<users[receiver_found].name <<" succesfully " << endl;          
+                            cout << "Amount transfered to "<<users[receiver_found].name <<" succesfully !" << endl;          
                         }
 
 
