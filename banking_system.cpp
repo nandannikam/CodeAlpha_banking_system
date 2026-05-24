@@ -43,14 +43,25 @@ class account : public customer{
     }
 
     void set_pin(int x){
-    pin = x;
-}
+        pin = x;
+    }
 
     int login(int a, int user_pin){
         if (acc_num == a && pin == user_pin){
             return 1;
         }
         return 0;
+    }
+
+    int receiver_login(int receiver_acc_num){
+       if (acc_num == receiver_acc_num ){
+            return 1;
+        }
+        return 0;
+    }
+
+    void receiver_balance_update(float r){
+        balance += r;
     }
 
 };
@@ -60,7 +71,12 @@ class transaction : public account {
 
     public :
 
-    void withdrawal(float amt){
+    float amt;
+
+    void withdrawal(){
+
+        cout << "Enter the amount to be withdrawn - ";
+        cin >> amt;
 
         if (amt<=balance){
             balance -= amt;
@@ -71,7 +87,10 @@ class transaction : public account {
         }
     }
 
-    void deposit(float amt){
+    void deposit(){
+
+        cout << "Enter the amount to be deposited - ";
+        cin >> amt;
 
         if (amt<=0){
             cout << "Enter valid input !" << endl;
@@ -83,7 +102,18 @@ class transaction : public account {
         }
     }
 
-    void fund_transfer(float amt){
+    float fund_transfer(){
+        cout <<"Enter the amount to be transfered - ";
+        cin >> amt;
+        if (amt<=0){
+            cout << "Enter valid input !" << endl;
+        } else {
+            balance -= amt;
+            cout << "tranferring...." << endl;
+            return amt;
+
+        }
+
 
 
         
@@ -113,7 +143,8 @@ int main(){
 
     int c1;
     int c2;
-    float amt;
+    float receiver_amt;
+
 
 
 
@@ -172,14 +203,11 @@ int main(){
                     cin >> c2;
 
                     if(c2==1){
-                        cout << "Enter the amount to be deposited - ";
-                        cin >> amt;
-                        users[found].deposit(amt);
+                        users[found].deposit();
 
                     } else if (c2==2){
-                        cout << "Enter the amount to be withdrawn - ";
-                        cin >> amt;
-                        users[found].withdrawal(amt);
+
+                        users[found].withdrawal();
 
                     } else if (c2==3){  
                         int receiver_acc_num;
@@ -189,9 +217,9 @@ int main(){
 
                         int receiver_found = -1;
 
-                        for(int i = 0; i < users.size(); i++){
-                            if(users[i].login(receiver_acc_num)){
-                                found = i;
+                        for(int j = 0; j < users.size(); j++){
+                            if(users[j].receiver_login(receiver_acc_num)){
+                                receiver_found = j;
                                 break;
                             }
                         }
@@ -201,8 +229,14 @@ int main(){
                         }
 
                         if(receiver_found != -1){
-                            cout <<"Enter the amount to be transfered - ";
-                            cin >> transfer_amt;
+                            float receiver_amt = users[found].fund_transfer();
+                            users[receiver_found].receiver_balance_update(receiver_amt);
+                            cout << "Amount transfered to  "<<users[receiver_found].name <<" succesfully " << endl;          
+                        }
+
+
+
+                            
 
                     } else if (c2==4){
                         users[found].check_balance();
