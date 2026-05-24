@@ -91,15 +91,20 @@ class transaction : public account {
     float fund_transfer(){
         cout <<"Enter the amount to be transfered - ";
         cin >> amt;
-        if (amt<=0){
-            cout << "Enter valid input !" << endl;
-        } else {
-            balance -= amt;
-            cout << "transferring...." << endl;
-            return amt;
 
+        if (amt <= 0){
+            cout << "Enter valid input !" << endl;
+            return 0;
         }
-  
+
+        if (amt > balance){
+            cout << "Insufficient balance !" << endl;
+            return 0;
+        }
+
+        balance -= amt;
+        cout << "Transferring..." << endl;
+        return amt;
     }
 
     void check_balance(){
