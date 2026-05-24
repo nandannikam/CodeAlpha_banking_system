@@ -123,8 +123,6 @@ int main(){
     int c1;
     int c2;
 
-
-
     while (true) {
 
         cout << "Welcome to the Banking System Menu" << endl;
@@ -211,9 +209,6 @@ int main(){
                             users[receiver_found].receiver_balance_update(receiver_amt);
                             cout << "Amount transfered to "<<users[receiver_found].name <<" succesfully !" << endl;          
                         }
-
-
-
                             
 
                     } else if (c2==4){
@@ -233,7 +228,6 @@ int main(){
         } else {
             cout << "Enter a valid input" << endl;
         }
-
 
     }
 
