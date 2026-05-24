@@ -85,9 +85,8 @@ class transaction : public account {
 
     void fund_transfer(float amt){
 
-        int f;
-        cout << "Enter the receiver's account number - ";
-        cin >> f;
+
+        
     }
 
     void check_balance(){
@@ -145,8 +144,6 @@ int main(){
             
             int found = -1;
 
-
-
             for(int i = 0; i < users.size(); i++){
                 if(users[i].login(a, user_pin)){
                     found = i;
@@ -185,7 +182,27 @@ int main(){
                         users[found].withdrawal(amt);
 
                     } else if (c2==3){  
-                        cout <<"Fund transfer function comming soon.." << endl;
+                        int receiver_acc_num;
+                        float transfer_amt;
+                        cout << "Enter the receiver's account number - ";
+                        cin >> receiver_acc_num;
+
+                        int receiver_found = -1;
+
+                        for(int i = 0; i < users.size(); i++){
+                            if(users[i].login(receiver_acc_num)){
+                                found = i;
+                                break;
+                            }
+                        }
+                        if(receiver_found == -1){
+                            cout << "No matching account found!" << endl;
+                            continue;
+                        }
+
+                        if(receiver_found != -1){
+                            cout <<"Enter the amount to be transfered - ";
+                            cin >> transfer_amt;
 
                     } else if (c2==4){
                         users[found].check_balance();
