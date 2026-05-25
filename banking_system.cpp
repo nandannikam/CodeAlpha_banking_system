@@ -107,6 +107,11 @@ class transaction : public account {
         return amt;
     }
 
+    void change_pin(){
+        cout << "Enter you new pin - ";
+        cin >> pin;
+    }
+
     void check_balance(){
         cout << "Available Balance - " << balance << endl; 
     }
@@ -173,7 +178,8 @@ int main(){
                     cout << "2. Withdrawal Cash" << endl;
                     cout << "3. Fund Transfer" << endl;
                     cout << "4. Check Balance" << endl;
-                    cout << "5. Exit" << endl;
+                    cout << "5. Change Pin" << endl;
+                    cout << "6. Exit" << endl;
                     cout << "Enter your choice - ";
                     cin >> c2;
 
@@ -215,6 +221,9 @@ int main(){
                         users[found].check_balance();
 
                     } else if (c2==5){
+                        users[found].change_pin();
+
+                    } else if (c2==6){
                         cout << "Exiting..." << endl;
                         break;
                     }
