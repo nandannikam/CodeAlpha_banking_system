@@ -1,6 +1,7 @@
 # include <iostream>
 # include <string>
 # include <vector>
+# include <limits>
 using namespace std;
 
 
@@ -57,10 +58,11 @@ class transaction : public account {
 
     public :
 
-    float amt;
+    
 
     void withdrawal(){
 
+        float amt;
         cout << "Enter the amount to be withdrawn - ";
         cin >> amt;
 
@@ -75,6 +77,7 @@ class transaction : public account {
 
     void deposit(){
 
+        float amt;
         cout << "Enter the amount to be deposited - ";
         cin >> amt;
 
@@ -89,6 +92,8 @@ class transaction : public account {
     }
 
     float fund_transfer(){
+
+        float amt;
         cout <<"Enter the amount to be transfered - ";
         cin >> amt;
 
@@ -116,7 +121,6 @@ class transaction : public account {
         cout << "Available Balance - " << balance << endl; 
     }
  
-
 };
 
 
@@ -136,7 +140,18 @@ int main(){
         cout << "2. Manage existing account" << endl;
         cout << "3. Exit" << endl;
         cout << "Enter your choice - ";
-        cin >> c1;
+
+        if (!(cin >> c1)) {  // taking the input and also checking it's datatype
+            
+            // 2. Clear the fail state so cin can work again
+            cin.clear(); 
+            
+            // 3. Ignore (flush out) all the bad characters left in the buffer up to the newline
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+            
+            cout << "Invalid input! Please type a number." << endl;
+            continue; // Skip the rest of the loop and start over
+        }
 
         if(c1 == 1){
             transaction newUser;
@@ -212,8 +227,11 @@ int main(){
                         if(receiver_found != -1){
 
                             float receiver_amt = users[found].fund_transfer();
-                            users[receiver_found].receiver_balance_update(receiver_amt);
-                            cout << "Amount transfered to "<<users[receiver_found].name <<" succesfully !" << endl;          
+                            if(receiver_amt>0){
+                                users[receiver_found].receiver_balance_update(receiver_amt);
+                                cout << "Amount transfered to "<<users[receiver_found].name <<" succesfully !" << endl;
+                            }
+                                       
                         }
                             
 
