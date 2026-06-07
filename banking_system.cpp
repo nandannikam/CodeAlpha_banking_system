@@ -218,6 +218,13 @@ int main(){
                     cout << "Enter your choice - ";
                     cin >> c2;
 
+                    if (!(cin >> c2)) {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cout << "Invalid input! Please type a number." << endl;
+                    continue;
+                    }
+
                     if(c2==1){
                         users[found].deposit();
 
