@@ -58,7 +58,6 @@ class transaction : public account {
 
     public :
 
-    
 
     void withdrawal(){
 
@@ -66,12 +65,17 @@ class transaction : public account {
         cout << "Enter the amount to be withdrawn - ";
         cin >> amt;
 
-        if (amt<=balance){
-            balance -= amt;
-            cout << "Amount withdrawaled succesfully !" << endl;
-            tran_his.push_back("Withdrawn " + to_string(amt));
-        } else {
+        if (amt > 0 and amt != 0){
+            if (amt<=balance){
+                balance -= amt;
+                cout << "Amount withdrawaled succesfully !" << endl;
+                tran_his.push_back("Withdrawn " + to_string(amt));
+        
+            } else {
             cout << "Insufficient balance !" << endl;
+            }
+        } else {
+            cout << "Enter valid input !" << endl;
         }
     }
 
@@ -141,16 +145,15 @@ int main(){
         cout << "3. Exit" << endl;
         cout << "Enter your choice - ";
 
-        if (!(cin >> c1)) {  // taking the input and also checking it's datatype
+        if (!(cin >> c1)) {
             
-            // 2. Clear the fail state so cin can work again
+
             cin.clear(); 
             
-            // 3. Ignore (flush out) all the bad characters left in the buffer up to the newline
             cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
             
             cout << "Invalid input! Please type a number." << endl;
-            continue; // Skip the rest of the loop and start over
+            continue; 
         }
 
         if(c1 == 1){
