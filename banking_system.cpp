@@ -49,6 +49,7 @@ class account : public customer{
 
     void receiver_balance_update(float r){
         balance += r;
+        tran_his.push_back("Received " + to_string(r));
     }
 
 };
@@ -113,6 +114,7 @@ class transaction : public account {
 
         balance -= amt;
         cout << "Transferring..." << endl;
+        tran_his.push_back("Transferred Out " + to_string(amt));
         return amt;
     }
 
@@ -123,6 +125,20 @@ class transaction : public account {
 
     void check_balance(){
         cout << "Available Balance - " << balance << endl; 
+    }
+
+    void trans_history(){
+
+        if (tran_his.empty()) {
+            cout << "No transactions yet." << endl;
+        } else {
+            cout << "--- Transaction History ---" << endl;
+            for (const string& record : tran_his) {
+                cout << record << endl;
+            }
+            cout << "---END---" << endl;
+        }
+
     }
  
 };
@@ -197,7 +213,8 @@ int main(){
                     cout << "3. Fund Transfer" << endl;
                     cout << "4. Check Balance" << endl;
                     cout << "5. Change Pin" << endl;
-                    cout << "6. Exit" << endl;
+                    cout << "6. View Transaction history" << endl;
+                    cout << "7. Exit" << endl;
                     cout << "Enter your choice - ";
                     cin >> c2;
 
@@ -250,6 +267,9 @@ int main(){
                         users[found].change_pin();
 
                     } else if (c2==6){
+                        users[found].trans_history();
+
+                    } else if (c2==7){
                         cout << "Exiting..." << endl;
                         break;
                     }
