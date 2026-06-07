@@ -214,6 +214,11 @@ int main(){
                         cout << "Enter the receiver's account number - ";
                         cin >> receiver_acc_num;
 
+                        if (receiver_acc_num == users[found].acc_num) {
+                            cout << "You cannot transfer funds to your own account!" << endl;
+                            continue;
+                        }
+
                         int receiver_found = -1;
 
                         for(int j = 0; j < users.size(); j++){
