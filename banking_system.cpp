@@ -71,7 +71,7 @@ class transaction : public account {
             if (amt<=balance){
                 balance -= amt;
                 cout << "Amount withdrawaled succesfully !" << endl;
-                tran_his.push_back("Withdrawn " + to_string(amt));
+                tran_his.push_back("Withdrawn: " + to_string(amt) + "| Remaining Balance: " + to_string(balance));
         
             } else {
             cout << "Insufficient balance !" << endl;
@@ -91,7 +91,7 @@ class transaction : public account {
             cout << "Enter valid input !" << endl;
         } else {
             balance += amt;
-            tran_his.push_back("Deposited " + to_string(amt));
+            tran_his.push_back("Deposited " + to_string(amt) + "| Remaining Balance: " + to_string(balance));
             cout << "Amount deposited succesfully !" << endl;
             cout << "Balance - "<< balance << endl;
         }
@@ -115,7 +115,7 @@ class transaction : public account {
 
         balance -= amt;
         cout << "Transferring..." << endl;
-        tran_his.push_back("Transferred Out " + to_string(amt));
+        tran_his.push_back("Transferred Out " + to_string(amt) + "| Remaining Balance: " + to_string(balance));
         return amt;
     }
 
