@@ -54,12 +54,18 @@ class account : public customer{
         tran_his.push_back("Received " + to_string(r));
     }
 
-    // Writes this specific user's data to the file
+// Writes this specific user's data to the file
     void save_to_file(ofstream& out) {
         out << acc_num << endl;
         out << pin << endl;
         out << balance << endl;
         out << name << endl; 
+        
+        // Save Transaction History
+        out << tran_his.size() << endl; 
+        for (int i = 0; i < tran_his.size(); i++) {
+            out << tran_his[i] << endl;
+        }
     }
 
     // Reads data from the file into this specific user
@@ -68,6 +74,17 @@ class account : public customer{
         in >> pin;
         in >> balance;
         getline(in >> ws, name);
+        
+        // Load Transaction History
+        int history_size;
+        in >> history_size; 
+        
+        tran_his.clear(); 
+        for (int i = 0; i < history_size; i++) {
+            string record;
+            getline(in >> ws, record);
+            tran_his.push_back(record);
+        }
     }
 
 };
@@ -155,11 +172,15 @@ class transaction : public account {
         if (tran_his.empty()) {
             cout << "No transactions yet." << endl;
         } else {
+            cout << " " << endl;
+            cout << " " << endl;
             cout << "--- Transaction History ---" << endl;
             for (const string& record : tran_his) {
                 cout << record << endl;
             }
             cout << "---END---" << endl;
+            cout << " " << endl;
+            cout << " " << endl;
         }
 
     }
@@ -270,7 +291,7 @@ int main(){
                     cout << "6. View Transaction history" << endl;
                     cout << "7. Exit" << endl;
                     cout << "Enter your choice - ";
-                    cin >> c2;
+
 
                     if (!(cin >> c2)) {
                     cin.clear();
