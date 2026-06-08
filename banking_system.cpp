@@ -24,13 +24,14 @@ class account : public customer{
 
     vector <string> tran_his;
 
-    void new_acc(){
+    int new_acc(){
         cout << "Enter the account holder name - ";
         getline(cin >> ws, name);
         cout << "Enter the account number - ";
         cin >> acc_num;
         cout << "Set the pin to perform transactions - ";
         cin >> pin;
+        return acc_num;
     }
 
     int login(int a, int user_pin){
@@ -121,6 +122,7 @@ class transaction : public account {
     void change_pin(){
         cout << "Enter you new pin - ";
         cin >> pin;
+        cout << "PIN changed successfully!" << endl;
     }
 
     void check_balance(){
@@ -174,10 +176,28 @@ int main(){
 
         if(c1 == 1){
             transaction newUser;
-            newUser.new_acc();
-            users.push_back(newUser);
-            cout << "Account created successfully!" << endl;
 
+            newUser.new_acc();
+
+            bool isDuplicate = false;
+
+
+            for (int k=0; k<users.size(); k++){
+                if (newUser.acc_num == users[k].acc_num){
+                    isDuplicate = true;
+                    break;
+                }
+            }
+
+            if (isDuplicate) {
+                cout << "An account with this number already exists! Please try again." << endl;
+            } else {
+                users.push_back(newUser);
+                cout << "Account created successfully!" << endl;
+
+            }
+
+        
         } else if (c1==2){
 
             int a, user_pin;
