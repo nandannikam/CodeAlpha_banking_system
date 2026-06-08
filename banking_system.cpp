@@ -2,6 +2,7 @@
 # include <string>
 # include <vector>
 # include <limits>
+#include <fstream>
 using namespace std;
 
 
@@ -51,6 +52,22 @@ class account : public customer{
     void receiver_balance_update(float r){
         balance += r;
         tran_his.push_back("Received " + to_string(r));
+    }
+
+    // Writes this specific user's data to the file
+    void save_to_file(ofstream& out) {
+        out << acc_num << endl;
+        out << pin << endl;
+        out << balance << endl;
+        out << name << endl; 
+    }
+
+    // Reads data from the file into this specific user
+    void load_from_file(ifstream& in) {
+        in >> acc_num;
+        in >> pin;
+        in >> balance;
+        getline(in >> ws, name);
     }
 
 };
@@ -154,6 +171,19 @@ class transaction : public account {
 int main(){
 
     vector<transaction> users;
+
+    // --- DATA LOADING ---
+    ifstream inFile("bank_data.txt");
+    if (inFile.is_open()) {
+        transaction tempUser;
+        // Peek at the file to see if there is an account number to read
+        while (inFile >> ws && !inFile.eof()) { 
+            tempUser.load_from_file(inFile);
+            users.push_back(tempUser);
+        }
+        inFile.close();
+        cout << "System Data Loaded Successfully. (" << users.size() << " accounts found)\n" << endl;
+    }
 
     int c1;
     int c2;
@@ -309,7 +339,14 @@ int main(){
             }
 
         } else if (c1==3){
-            cout << "Thank you for using Banking System!" << endl;
+            // --- DATA SAVING ---
+            ofstream outFile("bank_data.txt");
+            for (int i = 0; i < users.size(); i++) {
+                users[i].save_to_file(outFile);
+            }
+            outFile.close();
+            // -------------------
+            cout << "Data saved. Thank you for using Banking System!" << endl;
             break;
         } else {
             cout << "Enter a valid input" << endl;
