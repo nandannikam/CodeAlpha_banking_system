@@ -67,6 +67,10 @@ class transaction : public account {
         cout << "Enter the amount to be withdrawn - ";
         cin >> amt;
 
+        if (amt > 10000) {
+            cout << "NOTE : Maximum withdrawal limit per transaction is 10,000" << endl;
+        }
+
         if (amt > 0 and amt != 0){
             if (amt<=balance){
                 balance -= amt;
